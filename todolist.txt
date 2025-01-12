@@ -1,0 +1,75 @@
+PROJECT: Twitch Chat Text-to-Speech with ElevenLabs
+
+PHASE 1: Voice Management System Setup
+1. Create voice configuration structure
+   - Set up voices.json for storing voice configurations
+   - Include fields: id (auto-generated), name, elevenlabsId
+   - Ensure default voice is created and marked as non-deleteable
+
+2. Create Voice Management UI
+   - Add form for new voice entries (name + ElevenLabs ID)
+   - Create list view of existing voices
+   - Add edit functionality for voice names and IDs
+   - Add delete functionality (prevent deletion of default voice)
+   - Save changes to voices.json
+
+PHASE 2: Chatter Voice Assignment System
+1. Modify chatters.json structure
+   - Store chatter preferences: { "chatterName": "voiceId" }
+   - Implement voice command detection system
+   - Parse messages starting with "voice1:" through "voice10:"
+   - Update chatter's voice preference when command is detected
+
+2. Voice Command Processing
+   - Create function to strip voice commands from messages
+   - Format message as "{user} says, {message}"
+   - Handle voice preference persistence
+
+PHASE 3: ElevenLabs Integration
+1. Setup ElevenLabs Configuration
+   - Add API key configuration
+   - Create voice synthesis utility functions
+   - Implement error handling for API limits/failures
+
+2. Message Processing Pipeline
+   - Check if chatter has assigned voice
+   - If no assignment, use default voice
+   - Format message properly
+   - Send to ElevenLabs API
+   - Play returned audio
+
+PHASE 4: Integration and Testing
+1. Connect All Components
+   - Link Twitch chat message reception to voice system
+   - Implement message queue for API rate limiting
+   - Add audio playback management
+
+2. Error Handling and Edge Cases
+   - Handle API limits gracefully
+   - Manage concurrent message processing
+   - Handle voice assignment changes
+   - Implement fallback voices
+
+TECHNICAL REQUIREMENTS:
+1. File Structure:
+   - voices.json: Store voice configurations
+   - chatters.json: Store chatter voice preferences
+   - Add voice management endpoints to server.js
+   - Create voice management component in Svelte
+
+2. API Requirements:
+   - ElevenLabs API integration
+   - Voice CRUD operations
+   - Chatter preference management
+   - Message processing pipeline
+
+3. UI Components:
+   - Voice management interface
+   - Voice assignment status display
+   - Current voice settings display
+   - Error/status messages
+
+4. Data Validation:
+   - Validate ElevenLabs voice IDs
+   - Verify voice command syntax
+   - Ensure default voice protection
